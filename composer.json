@@ -2,6 +2,7 @@
     "name": "internet-design/yii2-svk-common",
     "description": "A common Yii2 Studio base",
     "type": "package",
+    "version": "dev-master",
     "reference": "5bea2ae283e2e77ef9ac5fef855df7c2",
     "keywords": [
         "yii2",
