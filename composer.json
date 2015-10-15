@@ -1,0 +1,17 @@
+{
+    "name": "internet-design/yii2-svk-common",
+    "description": "A common Yii2 Studio base",
+    "type": "package",
+    "reference": "5bea2ae283e2e77ef9ac5fef855df7c2",
+    "require": {
+        "yiisoft/yii2": "2.*"
+    },
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Internet-Design",
+            "email": "info@internet-design.ru"
+        }
+    ],
+    "minimum-stability": "dev"
+}
