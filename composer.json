@@ -3,6 +3,12 @@
     "description": "A common Yii2 Studio base",
     "type": "package",
     "reference": "5bea2ae283e2e77ef9ac5fef855df7c2",
+    "keywords": [
+        "yii2",
+        "framework",
+        "internet-design",
+        "common base"
+    ],
     "require": {
         "yiisoft/yii2": "2.*"
     },
@@ -11,7 +17,16 @@
         {
             "name": "Internet-Design",
             "email": "info@internet-design.ru"
+        },
+        {
+            "name": "Max Kalyabin",
+            "email": "maksim@kalyabin.ru"
         }
     ],
+    "autoload": {
+        "psr-4" : {
+            "svk\\" : ""
+        }
+    },
     "minimum-stability": "dev"
 }
