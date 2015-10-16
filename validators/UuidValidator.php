@@ -54,7 +54,7 @@ class UuidValidator extends Validator
         $valid = false;
 
         if (is_string($value) && !empty($value)) {
-            $chars = '[ABCDEF0123456789]';
+            $chars = '[0-9a-fA-F]';
             $reg = '#^' . implode(chr(45), [$chars . '{8}', $chars . '{4}', $chars . '{4}', $chars . '{4}', $chars . '{12}']) . '$#';
             $valid = preg_match($reg, $value);
         }
