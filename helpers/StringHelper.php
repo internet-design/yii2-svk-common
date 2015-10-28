@@ -31,7 +31,7 @@ class StringHelper extends \yii\helpers\StringHelper
         // обрезать до $count символов
         $output = self::truncate($input, $count, '', null, $asHtml);
 
-        if ($output <= $count) {
+        if (mb_strlen($output) <= $count) {
             return $output;
         }
 
