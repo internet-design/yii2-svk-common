@@ -3,7 +3,7 @@
     "description": "A common Yii2 Studio base",
     "type": "package",
     "version": "dev-master",
-    "reference": "698fc31c46cae9f0616922c1e7803996",
+    "reference": "22e303b2643c08ca14398df82e844fb3",
     "keywords": [
         "yii2",
         "framework",
