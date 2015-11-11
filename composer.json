@@ -3,7 +3,7 @@
     "description": "A common Yii2 Studio base",
     "type": "package",
     "version": "dev-master",
-    "reference": "22e303b2643c08ca14398df82e844fb3",
+    "reference": "ecb8c94a618c0baee080d27bc9cbffb2",
     "keywords": [
         "yii2",
         "framework",
@@ -11,7 +11,8 @@
         "common base"
     ],
     "require": {
-        "yiisoft/yii2": "2.*"
+        "yiisoft/yii2": "2.*",
+        "yiisoft/yii2-bootstrap": "*"
     },
     "license": "BSD-3-Clause",
     "authors": [
