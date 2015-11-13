@@ -157,6 +157,54 @@ class BootstrapDropDownInput extends InputWidget
     }
 
     /**
+     * Подготовка конфигов для виджета BootstrapButtonDropDown.
+     *
+     * @param array $selectedItem выбранный по умолчанию элемент
+     * @return array
+     */
+    protected function prepareButtonConfig($selectedItem)
+    {
+        $config = $this->button;
+        if (!array_key_exists('class', $config['options'])) {
+            $config['options']['class'] = [];
+        }
+        if (!array_key_exists('caretHtml', $config)) {
+            $config['caretHtml'] = $this->caretHtml;
+        }
+        Html::addCssClass($config['options'], 'js-dropdown-button');
+        $config['label'] = isset($selectedItem['label']) ? $selectedItem['label'] : '';
+        $config['dropdown'] = $this->dropdown;
+        $config['dropdown']['items'] = $this->prepareItems($this->items);
+
+        if (!array_key_exists('wrapperTag', $config['dropdown'])) {
+            $config['dropdown']['wrapperTag'] = 'ul';
+        }
+
+        if (!array_key_exists('itemTag', $config['dropdown'])) {
+            $config['dropdown']['itemTag'] = 'li';
+        }
+
+        return $config;
+    }
+
+    /**
+     * Регистрация скриптов
+     *
+     * @param array $config массив конфигурации из метода prepareButtonConfig
+     */
+    protected function registerScripts($config)
+    {
+        $clientOptions = [
+            'itemsWrapperTag' => $config['dropdown']['wrapperTag'],
+            'itemTag' => $config['dropdown']['itemTag'],
+            'wrapperSelector' => '#' . $this->wrapperOptions['id'],
+            'disabledClass' => $this->disabledClass,
+            'caretHtml' => $config['caretHtml'],
+        ];
+        BootstrapDropDownInputAsset::register($this->view, Html::getInputId($this->model, $this->attribute), $clientOptions);
+    }
+
+    /**
      * Рендер инпута
      *
      * @return string
@@ -173,26 +221,14 @@ class BootstrapDropDownInput extends InputWidget
 
         $content .= Html::beginTag($this->wrapperTag, $this->wrapperOptions);
         $content .= Html::activeHiddenInput($this->model, $this->attribute);
-        // рендер кнопки
-        $config = $this->button;
-        if (!array_key_exists('class', $config['options'])) {
-            $config['options']['class'] = [];
-        }
-        if (!array_key_exists('caretHtml', $config)) {
-            $config['caretHtml'] = $this->caretHtml;
-        }
-        Html::addCssClass($config['options'], 'js-dropdown-button');
-        $config['label'] = isset($selectedItem['label']) ? $selectedItem['label'] : '';
-        $config['dropdown'] = $this->dropdown;
-        $config['dropdown']['items'] = $this->prepareItems($this->items);
+
+        // конфиг для кнопки
+        $config = $this->prepareButtonConfig($selectedItem);
+
         $content .= BootstrapButtonDropDown::widget($config);
         $content .= Html::endTag($this->wrapperTag);
 
-        $clientOptions = [
-            'disabledClass' => $this->disabledClass,
-            'caretHtml' => $config['caretHtml'],
-        ];
-        BootstrapDropDownInputAsset::register($this->view, $this->wrapperOptions['id'], $clientOptions);
+        $this->registerScripts($config);
 
         return $content;
     }
