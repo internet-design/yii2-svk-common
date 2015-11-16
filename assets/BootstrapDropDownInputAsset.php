@@ -30,8 +30,10 @@ class BootstrapDropDownInputAsset extends AssetBundle
      * @param array $options настройки для инпута
      * @return mixed
      */
-    public static function register($view, $wrapperId, $options = [])
+    public static function register($view)
     {
+        $wrapperId = func_get_arg(1);
+        $options = func_get_arg(2);
         $ret = parent::register($view);
         $view->registerJs(new JsExpression("$('#{$wrapperId}').dropdownInput(" . Json::encode($options) . ");"));
         return $ret;
