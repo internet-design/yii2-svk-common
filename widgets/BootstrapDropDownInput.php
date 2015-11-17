@@ -165,6 +165,9 @@ class BootstrapDropDownInput extends InputWidget
     protected function prepareButtonConfig($selectedItem)
     {
         $config = $this->button;
+        if (!array_key_exists('options', $config)) {
+            $config['options'] = [];
+        }
         if (!array_key_exists('class', $config['options'])) {
             $config['options']['class'] = [];
         }
