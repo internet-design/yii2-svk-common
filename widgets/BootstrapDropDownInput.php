@@ -73,6 +73,11 @@ class BootstrapDropDownInput extends InputWidget
     public $button = [];
 
     /**
+     * @var array опции для hidden input
+     */
+    public $inputOptions = [];
+
+    /**
      * Подготовка элементов
      *
      * @param array $items
@@ -204,7 +209,8 @@ class BootstrapDropDownInput extends InputWidget
             'disabledClass' => $this->disabledClass,
             'caretHtml' => $config['caretHtml'],
         ];
-        BootstrapDropDownInputAsset::register($this->view, Html::getInputId($this->model, $this->attribute), $clientOptions);
+        $inputId = isset($this->inputOptions['id']) ? $this->inputOptions['id'] : Html::getInputId($this->model, $this->attribute);
+        BootstrapDropDownInputAsset::register($this->view, $inputId, $clientOptions);
     }
 
     /**
@@ -223,7 +229,7 @@ class BootstrapDropDownInput extends InputWidget
         }
 
         $content .= Html::beginTag($this->wrapperTag, $this->wrapperOptions);
-        $content .= Html::activeHiddenInput($this->model, $this->attribute);
+        $content .= Html::activeHiddenInput($this->model, $this->attribute, $this->inputOptions);
 
         // конфиг для кнопки
         $config = $this->prepareButtonConfig($selectedItem);
