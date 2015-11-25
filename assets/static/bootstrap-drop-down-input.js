@@ -49,18 +49,18 @@
  */
 (function($) {
     $.fn.dropdownInput = function(options) {
-        var disabledClass = options.disabledClass;
-        var caretHtml = options.caretHtml;
-        var wrapperSelector = options.wrapperSelector;
-        var itemsTag = options.itemsWrapperTag ? options.itemsWrapperTag : 'ul';
-        var itemTag = options.itemTag ? options.itemTag : 'li';
+        var disabledClass = options.disabledClass,
+            caretHtml = options.caretHtml,
+            wrapperSelector = options.wrapperSelector,
+            itemsTag = options.itemsWrapperTag || 'ul',
+            itemTag = options.itemTag || 'li',
 
-        var $self = this;
+            $self = this;
 
         $(document).ready(function() {
-            var $wrapper = $(wrapperSelector);
-            var $button = $wrapper.find('.js-dropdown-button');
-            var $list = $wrapper.find(itemsTag);
+            var $wrapper = $(wrapperSelector),
+                $button = $wrapper.find('.js-dropdown-button'),
+                $list = $wrapper.find(itemsTag);
 
             /**
              * Выбор элемента
@@ -79,14 +79,12 @@
              * Выбор элемента
              */
             $wrapper.on('click', 'a', function(e) {
-                e.preventDefault();
-
-                var value = $(this).data('value');
-                if ($(this).hasClass(disabledClass)) {
-                    value = '';
+                if ($(this).hasClass(disabledClass) || $(this).parent(itemTag).hasClass(disabledClass)) {
+                    return false;
                 }
-
+                var value = $(this).data('value');
                 selectItem(value, $(this).html());
+                e.preventDefault();
             });
 
             /**
@@ -103,8 +101,9 @@
                         .attr('href', '#')
                         .attr('class', 'js-dropdown-input-item ' + (newItem.disabled ? disabledClass : ''))
                         .attr('data-value', newItem.value);
-                    $link.html(newItem.label);
-                    $link.appendTo($newItem);
+                    $link.html(newItem.label)
+                        .appendTo($newItem);
+
                     $newItem.appendTo($list);
 
                     if (selectedItem === null || newItem.value == $self.val()) {
@@ -113,7 +112,7 @@
                 }
 
                 if (selectedItem) {
-                    selectItem(selectedItem.value ? selectedItem.value : '', selectedItem.label ? selectedItem.label : '');
+                    selectItem(selectedItem.value || '', selectedItem.label || '');
                 }
                 else {
                     selectItem(null, null);
