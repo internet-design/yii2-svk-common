@@ -39,6 +39,11 @@ class BootstrapDropDownInput extends InputWidget
     public $encodeLabels = false;
 
     /**
+     * @var boolean добавить пустой вариант
+     */
+    public $allowEmpty = false;
+
+    /**
      * @var string каретка
      */
     public $caretHtml = '<span class="caret"></span>';
@@ -157,6 +162,12 @@ class BootstrapDropDownInput extends InputWidget
         }
         if (!array_key_exists('encodeLabels', $this->dropdown)) {
             $this->dropdown['encodeLabels'] = $this->encodeLabels;
+        }
+        if ($this->allowEmpty) {
+            $this->items = ArrayHelper::merge([[
+                'value' => '',
+                'label' => '',
+                ]], $this->items);
         }
         return parent::init();
     }
