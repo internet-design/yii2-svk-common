@@ -44,6 +44,11 @@ class BootstrapDropDownInput extends InputWidget
     public $allowEmpty = false;
 
     /**
+     * @var string текст для пустого варианта
+     */
+    public $emptyText = '';
+
+    /**
      * @var string каретка
      */
     public $caretHtml = '<span class="caret"></span>';
@@ -166,7 +171,7 @@ class BootstrapDropDownInput extends InputWidget
         if ($this->allowEmpty) {
             $this->items = ArrayHelper::merge([[
                 'value' => '',
-                'label' => '',
+                'label' => $this->emptyText,
                 ]], $this->items);
         }
         return parent::init();
