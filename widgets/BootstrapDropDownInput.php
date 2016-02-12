@@ -142,7 +142,10 @@ class BootstrapDropDownInput extends InputWidget
             }
             if (array_key_exists('items', $item)) {
                 // вложенный список
-                $selectedItem = $this->getSelectedItem($item['items']);
+                $selectedSubItem = $this->getSelectedItem($item['items']);
+                if ($selectedSubItem && !$selectedItem) {
+                    $selectedItem = $selectedSubItem;
+                }
             }
             if (!is_null($selectedItem)) {
                 break;
