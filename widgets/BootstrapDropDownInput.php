@@ -4,6 +4,7 @@ namespace svk\widgets;
 use svk\assets\BootstrapDropDownInputAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\widgets\InputWidget;
 
 /**
@@ -245,6 +246,12 @@ class BootstrapDropDownInput extends InputWidget
 
         if (!array_key_exists('id', $this->wrapperOptions)) {
             $this->wrapperOptions['id'] = $this->id;
+        }
+
+        // check if value is array
+        $value = Html::getAttributeValue($this->model, $this->attribute);
+        if (!is_scalar($value)) {
+            $this->inputOptions['value'] = Json::encode($value);
         }
 
         $content .= Html::beginTag($this->wrapperTag, $this->wrapperOptions);
