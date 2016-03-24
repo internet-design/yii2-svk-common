@@ -57,7 +57,7 @@
 
             $self = this;
 
-        $(document).ready(function() {
+        $(function() {
             var $wrapper = $(wrapperSelector),
                 $button = $wrapper.find('.js-dropdown-button'),
                 $list = $wrapper.find(itemsTag);

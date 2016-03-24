@@ -35,7 +35,7 @@ class BootstrapDropDownInputAsset extends AssetBundle
         $wrapperId = func_get_arg(1);
         $options = func_get_arg(2);
         $ret = parent::register($view);
-        $view->registerJs(new JsExpression("$('#{$wrapperId}').dropdownInput(" . Json::encode($options) . ");"));
+        $view->registerJs(new JsExpression("$(function() { $('#{$wrapperId}').dropdownInput(" . Json::encode($options) . "); });"));
         return $ret;
     }
 }
