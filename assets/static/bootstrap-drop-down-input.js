@@ -72,6 +72,8 @@
             var selectItem = function(value, content) {
                 $self.val(value);
                 $button.empty().html(content + ' ' + caretHtml);
+                $wrapper.find('li.active').removeClass('active');
+                $wrapper.find('a.js-dropdown-input-item[data-value="' + value + '"]:first').parents('li:first').addClass('active');
                 $self.trigger('change').trigger('dropdownInput.change', [value]);
             };
 

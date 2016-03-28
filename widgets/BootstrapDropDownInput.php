@@ -92,15 +92,20 @@ class BootstrapDropDownInput extends InputWidget
      * Подготовка элементов
      *
      * @param array $items
+     * @param string|integer $selectedItemValue значение выбранного элемента
      * @return array
      */
-    protected function prepareItems(array $items)
+    protected function prepareItems(array $items, $selectedItemValue = null)
     {
         foreach ($items as $k => $item) {
             if (array_key_exists('items', $item) && is_array($item['items'])) {
                 $item['items'] = $this->prepareItems($item['items']);
             }
             $options = ArrayHelper::getValue($item, 'options', []);
+            // активность элемента
+            if (isset($item['value']) && $selectedItemValue === $item['value']) {
+                Html::addCssClass($options, 'active');
+            }
             $linkOptions = ArrayHelper::getValue($item, 'linkOptions', []);
             Html::addCssClass($linkOptions, 'js-dropdown-input-item');
             if (array_key_exists('disabled', $item) && $item['disabled'] === true) {
@@ -176,7 +181,7 @@ class BootstrapDropDownInput extends InputWidget
             $this->items = ArrayHelper::merge([[
                 'value' => '',
                 'label' => $this->emptyText,
-                ]], $this->items);
+            ]], $this->items);
         }
         return parent::init();
     }
@@ -202,7 +207,7 @@ class BootstrapDropDownInput extends InputWidget
         Html::addCssClass($config['options'], 'js-dropdown-button');
         $config['label'] = isset($selectedItem['label']) ? $selectedItem['label'] : '';
         $config['dropdown'] = $this->dropdown;
-        $config['dropdown']['items'] = $this->prepareItems($this->items);
+        $config['dropdown']['items'] = $this->prepareItems($this->items, isset($selectedItem['value']) ? $selectedItem['value'] : null);
 
         if (!array_key_exists('wrapperTag', $config['dropdown'])) {
             $config['dropdown']['wrapperTag'] = 'ul';
